@@ -167,7 +167,11 @@ def main():
     parser, args = get_args()
     config = get_config(args.config_filename)
 
-    link = args.link if args.link else input('link: ')
+    try:
+        link = args.link if args.link else input('link: ')
+    except KeyboardInterrupt:
+        print()
+        return
 
     matched = re_story_link.match(link)
     if matched is None:
@@ -186,7 +190,7 @@ def main():
         client,
         peer,
         int(story_id),
-        args.output_filename,
+        args.output_filename or f'file.{peer}.{story_id}',
     )
 
     client.loop.run_until_complete(coro)
