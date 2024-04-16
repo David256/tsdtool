@@ -143,6 +143,10 @@ async def process(client: TelegramClient,
 
     # print(_stories.stringify())
 
+    if len(_stories.stories) == 0:
+        print('No stories found')
+        return
+
     story = _stories.stories[0]
 
     media: Union[MessageMediaDocument, MessageMediaPhoto, None] = None
